@@ -31,41 +31,44 @@ namespace Get_LOC
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
+            StringBuilder sb = new StringBuilder();
 
             string[] entries = txtLOCList.Lines;
             txtAnswers.Clear();
-
+            string lastTerm = "";
+            string answer = "";
             foreach (string entry in entries)
-            {                
+            {
                 string term = entry.Trim().ToLower();
-                
-                if (string.IsNullOrEmpty(term) == false)
+
+                if (string.IsNullOrEmpty(term) == false && term != lastTerm)
                 {
                     if (term.StartsWith("loc") == true)
                     {
-                        string answer = searchThisLOCTerm(term);
+                        answer = searchThisLOCTerm(term);
                         if (answer != "Error")
-                        { txtAnswers.Text += entry + "\t" + answer + "\r\n"; }
+                        { sb.Append(entry + "\t" + answer + "\r\n"); }
                         else
-                        { txtAnswers.Text += entry + "\t" + answer + "\r\n"; }
+                        { sb.Append(entry + "\t" + answer + "\r\n"); }
                     }
                     else
                     {
-                        string answer = searchThis(term);
+                        answer = searchThis(term);
                         if (answer != "Error")
-                        { txtAnswers.Text += entry + "\t" + answer + "\r\n"; }
+                        { sb.Append(entry + "\t" + answer + "\r\n"); }
                         else
-                        { txtAnswers.Text += entry + "\t" + answer + "\r\n"; }
+                        { sb.Append(entry + "\t" + answer + "\r\n"); }
                     }
-                    Application.DoEvents();
+                    
+                    
                 }
+                else if (lastTerm == term)
+                { sb.Append(entry + "\t" + answer + "\r\n"); }
+                txtAnswers.Clear();
+                txtAnswers.Text = sb.ToString();
+                lastTerm = term;
+                Application.DoEvents();
             }
-
-
-
-            //string answer = "";
-            //string term = "LOC751814";
-            //term = "sox9";
         }
 
         private string searchThisLOCTerm(string term) 
@@ -116,7 +119,7 @@ namespace Get_LOC
         {
             string answer = "Error";
 
-            char[] endOfLineChar = { '\r', '\n', '<' };
+            char[] endOfLineChar = { '\r', '\n' };
 
             string thisURL = url + term;
             client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
@@ -124,16 +127,21 @@ namespace Get_LOC
             string contents = getText(thisURL);
 
             if (contents == "Error") { return answer; }
-
+            //contents = CleanTags(contents);
+            
             int startPoint = contents.IndexOf("https://www.ncbi.nlm.nih.gov/gene/") + 1;
+            if (startPoint == 0)
+            { startPoint = contents.IndexOf("<h3>See <a href=\"/gene/") + 1; }
             int index = contents.ToLower().IndexOf(">" + term.ToLower(), startPoint);
             if (index > -1)
             {
-                int endOfLine = contents.IndexOfAny(endOfLineChar, index);
+                int endOfLine = contents.IndexOfAny(endOfLineChar, index + term.Length + 10);
                 if (endOfLine > -1)
                 {
                     int textClipStar = index + 3 + term.Length;
                     answer = contents.Substring(textClipStar, endOfLine - textClipStar); 
+                    if (answer.Contains("<") == true)
+                    { answer=CleanTags(answer); }
                 }
             }            
 
@@ -141,6 +149,34 @@ namespace Get_LOC
 
         }
 
+        private string CleanTags(string text)
+        {
+            string answer = text;
+
+            int length = text.Length + 1;
+            while (length != answer.Length)
+            {
+                length = answer.Length;
+                int first = answer.IndexOf("<");
+                if (first > -1)
+                {
+                    int second = answer.IndexOf(">");
+                    if (second > first)
+                    {
+                        string answerPart = answer.Substring(0, first) + answer.Substring(second + 1);
+                        answer = answerPart.Trim();
+                        if (answer.StartsWith("\n") == true)
+                        { answer = answer.Substring(1); }
+                    }
+                    else
+                    {
+                        answer = answer.Substring(second+1);
+                    }
+                }
+                
+            }
+            return answer;
+        }
 
         private string getText(string urlToUse)
         {
