@@ -29,12 +29,14 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txtLOCList = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.btnSearch = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtLOCList = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtAnswers = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btnFile = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -43,47 +45,49 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.btnFile);
+            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.btnSearch);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.txtLOCList);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(557, 156);
+            this.groupBox1.Size = new System.Drawing.Size(586, 186);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "List of Gene SYMBOL terms";
             // 
-            // txtLOCList
-            // 
-            this.txtLOCList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtLOCList.Location = new System.Drawing.Point(14, 40);
-            this.txtLOCList.Multiline = true;
-            this.txtLOCList.Name = "txtLOCList";
-            this.txtLOCList.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtLOCList.Size = new System.Drawing.Size(537, 110);
-            this.txtLOCList.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(266, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Copy and paste list to text area and then press \'Search\'";
-            // 
             // btnSearch
             // 
             this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSearch.Location = new System.Drawing.Point(472, 11);
+            this.btnSearch.Location = new System.Drawing.Point(501, 50);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 23);
             this.btnSearch.TabIndex = 2;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(11, 55);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(266, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Copy and paste list to text area and then press \'Search\'";
+            // 
+            // txtLOCList
+            // 
+            this.txtLOCList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtLOCList.Location = new System.Drawing.Point(14, 79);
+            this.txtLOCList.Multiline = true;
+            this.txtLOCList.Name = "txtLOCList";
+            this.txtLOCList.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtLOCList.Size = new System.Drawing.Size(566, 101);
+            this.txtLOCList.TabIndex = 0;
             // 
             // groupBox2
             // 
@@ -92,9 +96,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.txtAnswers);
-            this.groupBox2.Location = new System.Drawing.Point(12, 174);
+            this.groupBox2.Location = new System.Drawing.Point(12, 223);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(557, 264);
+            this.groupBox2.Size = new System.Drawing.Size(586, 348);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Gene name and short description";
@@ -118,16 +122,38 @@
             this.txtAnswers.Multiline = true;
             this.txtAnswers.Name = "txtAnswers";
             this.txtAnswers.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtAnswers.Size = new System.Drawing.Size(533, 214);
+            this.txtAnswers.Size = new System.Drawing.Size(562, 298);
             this.txtAnswers.TabIndex = 2;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(11, 26);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(463, 13);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Either get list of SYMBOL terms from a file by pressing \'Select\' and the press th" +
+    "e \'Search\' buttonor";
+            // 
+            // btnFile
+            // 
+            this.btnFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFile.Location = new System.Drawing.Point(501, 21);
+            this.btnFile.Name = "btnFile";
+            this.btnFile.Size = new System.Drawing.Size(75, 23);
+            this.btnFile.TabIndex = 4;
+            this.btnFile.Text = "Select";
+            this.btnFile.UseVisualStyleBackColor = true;
+            this.btnFile.Click += new System.EventHandler(this.btnFile_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(581, 461);
+            this.ClientSize = new System.Drawing.Size(610, 594);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.MinimumSize = new System.Drawing.Size(626, 633);
             this.Name = "Form1";
             this.Text = "Get Name and descriptiom from gene symbol";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -148,6 +174,8 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtAnswers;
+        private System.Windows.Forms.Button btnFile;
+        private System.Windows.Forms.Label label3;
     }
 }
 

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Net;
 using System.IO;
 using System.Reflection;
+using static System.Windows.Forms.LinkLabel;
 
 namespace Get_LOC
 {
@@ -27,6 +28,7 @@ namespace Get_LOC
             txtLOCList.Text = "SOX9\r\nLOC751814\r\nLOC610636\r\nLOC607095\r\nLOC484356\r\nLOC480441\r\nLOC479761\r\nLOC477539\r\nLOC403585\r\nLOC106557476\r\nLOC102155886\r\nLOC102155410\r\nLOC102153034\r\nLOC102152706\r\nLOC102152620\r\nLOC102151424\r\nLOC100856786\r\nLOC100855634\r\nLOC100855600\r\nLOC100686502\r\nLOC100686073\r\nLOC100684432\r\nLOC100683370\r\nLOC100049001\r\n";
 
             client = new WebClient();
+            client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -43,24 +45,13 @@ namespace Get_LOC
 
                 if (string.IsNullOrEmpty(term) == false && term != lastTerm)
                 {
-                    if (term.StartsWith("loc") == true)
-                    {
-                        answer = searchThisLOCTerm(term);
-                        if (answer != "Error")
-                        { sb.Append(entry + "\t" + answer + "\r\n"); }
-                        else
-                        { sb.Append(entry + "\t" + answer + "\r\n"); }
-                    }
+                    if (term == "-")
+                    { sb.Append("Blank\t" + answer + "\r\n"); }
                     else
                     {
-                        answer = searchThis(term);
-                        if (answer != "Error")
-                        { sb.Append(entry + "\t" + answer + "\r\n"); }
-                        else
-                        { sb.Append(entry + "\t" + answer + "\r\n"); }
-                    }
-                    
-                    
+                        answer = searchBrief(term);
+                        sb.Append(entry + "\t" + answer + "\r\n");
+                    }                                                       
                 }
                 else if (lastTerm == term)
                 { sb.Append(entry + "\t" + answer + "\r\n"); }
@@ -70,83 +61,29 @@ namespace Get_LOC
                 Application.DoEvents();
             }
         }
-
-        private string searchThisLOCTerm(string term) 
-        {
-            string answer = "Error";
-
-            char[] endOfLineChar = { '\r', '\n', '<' };
-            
-            string thisURL = url + term;
-            client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
-
-            string contents = getText(thisURL);
-
-            int index = contents.ToLower().IndexOf(">" + term.ToLower());
-            if (index > -1)
-            {
-                int endOfLine = contents.IndexOfAny(endOfLineChar, index + 10);
-                if (endOfLine > -1)
-                { 
-                    int startTextClipFrom = index + 1 + term.Length;
-                    answer = contents.Substring(startTextClipFrom, endOfLine - startTextClipFrom);
-                    if (answer.Contains("- Gene") == true)
-                    {
-                        int newEnd = answer.IndexOf("- Gene");
-                        if (newEnd > -1)
-                        { answer =  answer.Substring(0, newEnd); }
-                    }
-                    else if (string.IsNullOrEmpty(answer) == true)
-                    {
-                        index = contents.ToLower().IndexOf("<title>") + 7;
-                        endOfLine = contents.IndexOf("</title>", index);
-                        answer = contents.Substring(index, endOfLine-index);
-                        if (answer.Contains("- Gene") == true)
-                        {
-                            int newEnd = answer.IndexOf("- Gene");
-                            if (newEnd > -1)
-                            { answer = answer.Substring(0, newEnd); }
-                        }
-                    }
-                }
-            }
-
-            return answer.Trim();
-
-        }
-
-        private string searchThis(string term)
+  
+        private string searchBrief(string term)
         {
             string answer = "Error";
 
             char[] endOfLineChar = { '\r', '\n' };
 
-            string thisURL = url + term;
-            client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
+            string thisURL = url + term + "&report=docsum&format=text";
 
             string contents = getText(thisURL);
 
             if (contents == "Error") { return answer; }
-            //contents = CleanTags(contents);
-            
-            int startPoint = contents.IndexOf("https://www.ncbi.nlm.nih.gov/gene/") + 1;
-            if (startPoint == 0)
-            { startPoint = contents.IndexOf("<h3>See <a href=\"/gene/") + 1; }
-            int index = contents.ToLower().IndexOf(">" + term.ToLower(), startPoint);
-            if (index > -1)
+
+            if (contents.Contains("<pre>") == true)
             {
-                int endOfLine = contents.IndexOfAny(endOfLineChar, index + term.Length + 10);
-                if (endOfLine > -1)
-                {
-                    int textClipStar = index + 3 + term.Length;
-                    answer = contents.Substring(textClipStar, endOfLine - textClipStar); 
-                    if (answer.Contains("<") == true)
-                    { answer=CleanTags(answer); }
-                }
-            }            
+                int coordins = contents.IndexOf("<pre>") + 5;
+                contents=contents.Substring(coordins).Trim();
+            }
 
+            string[] lines = contents.Split('\n');
+            answer = lines[1];
+            answer = lines[0].Substring(3) + "\t" + answer.Replace("Official Symbol: ", "").Replace(" and Name: ", " - ");
             return answer;
-
         }
 
         private string CleanTags(string text)
@@ -192,6 +129,44 @@ namespace Get_LOC
                 return fileText;
             }
             catch { return "Error"; }
+        }
+
+        private void btnFile_Click(object sender, EventArgs e)
+        {
+            Form2 f2 =new Form2();
+            if (f2.ShowDialog() == DialogResult.OK)
+            {
+                getData(f2.FileName, f2.ItemIndex, f2.Delimitor);
+            }
+        }
+
+        private void getData(string name, int index, char delimitor)
+        {
+
+            System.IO.StreamReader sf = null;
+
+            try
+            {
+                sf = new System.IO.StreamReader(name);
+                string line = "";
+                string[] items = null;
+
+                List<string> sybmols = new List<string>();
+                while (sf.Peek() > 0 )
+                {
+                    line = sf.ReadLine();
+                    items = line.Split(delimitor);
+                    if (items.Length > index)
+                    { sybmols.Add(items[index].Replace("\"","")); }
+                    else { sybmols.Add("-"); }
+                }
+
+                txtLOCList.Lines = sybmols.ToArray();
+                
+            }
+            catch (Exception ex) { MessageBox.Show("Could not read file: " + ex.Message, "Error"); }
+            finally
+            { if (sf != null) { sf.Close(); } }
         }
 
     }
