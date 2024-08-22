@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnFile = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.btnSearch = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtLOCList = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtAnswers = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.btnFile = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -56,6 +56,27 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "List of Gene SYMBOL terms";
+            // 
+            // btnFile
+            // 
+            this.btnFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFile.Location = new System.Drawing.Point(501, 21);
+            this.btnFile.Name = "btnFile";
+            this.btnFile.Size = new System.Drawing.Size(75, 23);
+            this.btnFile.TabIndex = 4;
+            this.btnFile.Text = "Select";
+            this.btnFile.UseVisualStyleBackColor = true;
+            this.btnFile.Click += new System.EventHandler(this.btnFile_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(11, 26);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(441, 13);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Get a list of SYMBOL terms from a file by pressing \'Select\' and then press the \'S" +
+    "earch\' button";
             // 
             // btnSearch
             // 
@@ -124,27 +145,6 @@
             this.txtAnswers.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtAnswers.Size = new System.Drawing.Size(562, 298);
             this.txtAnswers.TabIndex = 2;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 26);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(463, 13);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Either get list of SYMBOL terms from a file by pressing \'Select\' and the press th" +
-    "e \'Search\' buttonor";
-            // 
-            // btnFile
-            // 
-            this.btnFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFile.Location = new System.Drawing.Point(501, 21);
-            this.btnFile.Name = "btnFile";
-            this.btnFile.Size = new System.Drawing.Size(75, 23);
-            this.btnFile.TabIndex = 4;
-            this.btnFile.Text = "Select";
-            this.btnFile.UseVisualStyleBackColor = true;
-            this.btnFile.Click += new System.EventHandler(this.btnFile_Click);
             // 
             // Form1
             // 
