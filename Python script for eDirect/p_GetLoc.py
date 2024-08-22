@@ -42,6 +42,7 @@ for line in inputFile:
         print(str(counter) + "\t" + str(lineNos) + "\t" + lastAnswer)
     else:
         outputFile.write("-\t-\t-\n")
+        outputFile.flush()
         print("-\t-\t-")
         
 inputFile.close()

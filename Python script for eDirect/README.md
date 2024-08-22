@@ -56,3 +56,4 @@ The command below is used to search the NCBI Gene dataset using the Python imple
 **Points**:  
 1. The text: {name} is replaced by the search term.  
 2. The [Gene Name] limits the search to genes otherwise terms such as **CAT** return terms linked to the animal as well as to "catalase".
+3. It is possible to submit a list of IDs or file of ID's, however, while quicker it never seemed to work as well. For example, submitting BRCA1 on its own produced of 4 Mb results while BRCA1,TP53 returned just 429 Kb. Similarly, lists of RefSeq ID failed to return any data.
