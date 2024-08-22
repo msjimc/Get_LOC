@@ -68,7 +68,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 110);
+            this.label4.Location = new System.Drawing.Point(6, 99);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(263, 13);
             this.label4.TabIndex = 7;
@@ -150,7 +150,7 @@
             this.txtDisplay.Multiline = true;
             this.txtDisplay.Name = "txtDisplay";
             this.txtDisplay.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtDisplay.Size = new System.Drawing.Size(677, 119);
+            this.txtDisplay.Size = new System.Drawing.Size(677, 130);
             this.txtDisplay.TabIndex = 0;
             this.txtDisplay.WordWrap = false;
             // 
@@ -184,9 +184,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.txtDisplay);
-            this.groupBox2.Location = new System.Drawing.Point(9, 126);
+            this.groupBox2.Location = new System.Drawing.Point(9, 115);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(683, 138);
+            this.groupBox2.Size = new System.Drawing.Size(683, 149);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             // 
