@@ -4,26 +4,31 @@ This script requires the EDirect software to be installed on the computer as des
 
 Like the application, the script reads a character delimited text file, splitting each line in to a series for fields using a user selected character and then searcher the NCBI Gene data set for the terms in the user selected field. 
 
+**Note**: If your file is a tab delimited text file, the entered character has to be '\t'. However, this may not be processed correctly and you may have to change line 10 in the script from   
+> splitCharacter = sys.argv[3]  
+
+to
+
+> splitCharacter = "\t"
+
 ## Command
  A typical command is:
 
- > python p_GetLoc.py Deseq2_significant_names.csv Deseq2_significant_names_descriptions.txt , 9
+ > python p_GetLoc.py Deseq2_names.csv Deseq2_names_descriptions.txt , 9
 
- (**Note** the file's paths were omitted to ease reading)
+ (**Note** the file's paths were omitted to ease of reading)
 
  Where
- * python - indicates its a python script to the computer
- * p_GetLoc.py - the name of the script
- * Deseq2_significant_names.csv - the name of the file containing the terms
- * Deseq2_significant_names_descriptions.txt - the name of the file to save the data too (if the file exists it will be overwritten)
+ * python - instructs the computer its a python script
+ * p_GetLoc.py - is the name of the script
+ * Deseq2_names.csv - the name of the file containing the terms
+ * Deseq2_names_descriptions.txt - the name of the file to save the data too (if the file exists it will be overwritten)
  * **,** - the character used to split each line in to individual fields
  * 9 - The index of the field used to search the Gene data set (Index values start at 1)
 
- If the index is larger then the number of fields in a line the term will be set to **-** and ignored. Similarly, terms set to SYMBOL or RefSeq are also ignored as they are probably the column titles.
+ If the index is larger then the number of fields in a line the term will be set to **-** and ignored. Similarly, SYMBOL or RefSeq  terms are also ignored as they are probably the column titles.
 
- As the script runs it stores the returned data to the selected file and also prints the data to the terminal (Figure 1). The format of the exported data is shown in Table 1.
-
-
+ As the script runs it stores the returned data to the selected file and also prints the data to the terminal (Figure 1). The format of the exported data is indicated in Table 1.
 
  ![Figure 1](images/figure1.jpg)
 
@@ -48,4 +53,6 @@ The command below is used to search the NCBI Gene dataset using the Python imple
   
 > esearch -db gene -query {name}[Gene Name] | efetch -format gdc  
 
-The [Gene Name] limits the search to genes otherwise terms such as **CAT** return terms linked to the animal as well as "catalase".
+**Points**:  
+1. The text: {name} is replaced by the search term.  
+2. The [Gene Name] limits the search to genes otherwise terms such as **CAT** return terms linked to the animal as well as to "catalase".
