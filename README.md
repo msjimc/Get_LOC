@@ -12,7 +12,7 @@ This repository contains a desktop application and an independent Python script 
 * While primarily a Windows program it can run on a range of Linux and macOS computers with the aid of Wine ([website](https://www.winehq.org/) and [guide](https://github.com/msjimc/RunningWindowsProgramsOnLinux)) (Figure 2).
 
 ### Python script: p_Get_LOC.py   
-* Searchers NCBI's Gene dataset using Python implementation of EDirect using the ___edirect.pipeline___ process to run this command -   
+* Searchers NCBI's Gene dataset using the Python implementation of EDirect using the ___edirect.pipeline___ process to run this command -   
 > esearch -db gene -query {name}[Gene Name] | efetch -format gdc     
 
 * The script requires that EDirect is installed in your computer.
