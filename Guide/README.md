@@ -77,6 +77,8 @@ Whether the terms were copied and pasted or imported from a file, pressing the *
 
 If the data set is derived from a non-model species some of the gene SYMBOL terms are not very informative such as LOC403585 and to a lesser extent TMEM47 in Figures 8a and 8b. If the __Try to get Human Symbol__ option is checked, **Get_LOC** will attempt to use the gene description to get the human gene SYMBOL term (see Figure 8b). If found it will be appended to the standard result line (after a tab character), if it isn't found an '-' character will be appended. Often the human SYMBOL is the same as the search term, but in upper case, however it is different and more informative than a LOCxxxxxx ID term. If the description contains the text **-like** after the name the search typically fails even if the **-like** term is removed.  
 
+> https://www.ncbi.nlm.nih.gov/gene/?term=&report=docsum&format=text
+
 ![Figure 8a](images/figure8a.jpg)
 
 Figure 8a

@@ -19,7 +19,6 @@ namespace Get_LOC
         WebClient client;
         string url = "https://www.ncbi.nlm.nih.gov/gene/?term=";
         string urlHumanSymbol1 = "https://www.ncbi.nlm.nih.gov/gene/?term=";
-        //string urlHumanSymbol2 = "%5BGene+Full+Name%5D)+AND+9606%5BTaxonomy+ID%5D&report=docsum&format=text";
         string urlHumanSymbol2 = "&report=docsum&format=text";
 
         public Form1()
