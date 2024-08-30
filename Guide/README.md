@@ -73,6 +73,7 @@ Whether the terms were copied and pasted or imported from a file, pressing the *
 
 * **Note**: If the data is from a file, you may need to delete the first term as it may be either an empty line or the column title.  
 * **Note**: If a line has fewer fields than the selected column, its search term is set to **-** and a results line consisting of **-** characters is played in the results dataset.
+* **Note**: While Get_LOC runs, the interface becomes inactive while it requests and receives data from NCBI, however mouse clicks etc, will be responded too as the lower text field is updated.
 
 If the data set is derived from a non-model species some of the gene SYMBOL terms are not very informative such as LOC403585 and to a lesser extent TMEM47 in Figures 8a and 8b. If the __Try to get Human Symbol__ option is checked, **Get_LOC** will attempt to use the gene description to get the human gene SYMBOL term (see Figure 8b). If found it will be appended to the standard result line (after a tab character), if it isn't found an '-' character will be appended. Often the human SYMBOL is the same as the search term, but in upper case, however it is different and more informative than a LOCxxxxxx ID term. If the description contains the text **-like** after the name the search typically fails even if the **-like** term is removed.  
 
@@ -88,6 +89,6 @@ Figure 8b
 
 <hr />
 
-While Get_LOC runs, the interface becomes inactive while it requests and receives data from NCBI, however mouse clicks etc, will be responded too as the lower text field is updated.
+## Saving the results
 
-Once the list has been processed, it can be copied and pasted in to the required documents.
+Once the list has been processed, it can be either copied and pasted in to the required documents or saved as a text file using the **Save** button in the lower right corner of the form.

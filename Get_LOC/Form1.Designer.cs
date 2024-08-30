@@ -112,6 +112,7 @@
             this.txtLOCList.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtLOCList.Size = new System.Drawing.Size(566, 128);
             this.txtLOCList.TabIndex = 0;
+            this.txtLOCList.TextChanged += new System.EventHandler(this.txtLOCList_TextChanged);
             // 
             // groupBox2
             // 

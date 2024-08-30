@@ -252,5 +252,25 @@ namespace Get_LOC
             finally
             { if (fw != null) { fw.Close(); } }
         }
+
+        private void txtLOCList_TextChanged(object sender, EventArgs e)
+        {
+            string original = txtLOCList.Text;
+            bool changed = false;
+            int n = original.IndexOf("\n");
+            int r = original.IndexOf("\r");
+            if (n == -1 && r > -1)
+            {
+                original = original.Replace("\r", "\r\n");
+                changed = true;
+            }
+            else if (n > -1 && r == -1)
+            {
+                original = original.Replace("\n", "\r\n");
+                changed = true;
+            }
+
+            if (changed == true) { txtLOCList.Text = original; }
+        }
     }
 }
