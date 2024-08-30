@@ -37,6 +37,8 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtAnswers = new System.Windows.Forms.TextBox();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.chkHuman = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -45,6 +47,7 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.chkHuman);
             this.groupBox1.Controls.Add(this.btnFile);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.btnSearch);
@@ -52,7 +55,7 @@
             this.groupBox1.Controls.Add(this.txtLOCList);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(586, 186);
+            this.groupBox1.Size = new System.Drawing.Size(586, 205);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "List of Gene SYMBOL terms";
@@ -107,7 +110,7 @@
             this.txtLOCList.Multiline = true;
             this.txtLOCList.Name = "txtLOCList";
             this.txtLOCList.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtLOCList.Size = new System.Drawing.Size(566, 101);
+            this.txtLOCList.Size = new System.Drawing.Size(566, 128);
             this.txtLOCList.TabIndex = 0;
             // 
             // groupBox2
@@ -115,6 +118,7 @@
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.btnSave);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.txtAnswers);
             this.groupBox2.Location = new System.Drawing.Point(12, 223);
@@ -139,12 +143,34 @@
             this.txtAnswers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtAnswers.Location = new System.Drawing.Point(14, 37);
+            this.txtAnswers.Location = new System.Drawing.Point(14, 49);
             this.txtAnswers.Multiline = true;
             this.txtAnswers.Name = "txtAnswers";
             this.txtAnswers.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtAnswers.Size = new System.Drawing.Size(562, 298);
+            this.txtAnswers.Size = new System.Drawing.Size(562, 264);
             this.txtAnswers.TabIndex = 2;
+            // 
+            // btnSave
+            // 
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Location = new System.Drawing.Point(501, 319);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 4;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // chkHuman
+            // 
+            this.chkHuman.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkHuman.AutoSize = true;
+            this.chkHuman.Location = new System.Drawing.Point(350, 54);
+            this.chkHuman.Name = "chkHuman";
+            this.chkHuman.Size = new System.Drawing.Size(145, 17);
+            this.chkHuman.TabIndex = 5;
+            this.chkHuman.Text = "Try to get Human Symbol";
+            this.chkHuman.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -176,6 +202,8 @@
         private System.Windows.Forms.TextBox txtAnswers;
         private System.Windows.Forms.Button btnFile;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.CheckBox chkHuman;
     }
 }
 

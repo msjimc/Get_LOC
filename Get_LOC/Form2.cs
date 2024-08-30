@@ -24,7 +24,7 @@ namespace Get_LOC
 
         private void btnSelect_Click(object sender, EventArgs e)
         {
-            string name = FileString.OpenAs("Select the file containing the gene SYMBOL terms", "Delimitored text file*.txt;*.csv;*.xls|*.txt;*.csv;*.xls");
+            string name = FileString.OpenAs("Select the file containing the gene SYMBOL terms", "Delimitored text file (*.txt;*.csv;*.xls)|*.txt;*.csv;*.xls");
             if (System.IO.File.Exists(name)==false) 
             { return; }
 

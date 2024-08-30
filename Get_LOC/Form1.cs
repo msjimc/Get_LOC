@@ -18,6 +18,10 @@ namespace Get_LOC
     {
         WebClient client;
         string url = "https://www.ncbi.nlm.nih.gov/gene/?term=";
+        string urlHumanSymbol1 = "https://www.ncbi.nlm.nih.gov/gene/?term=";
+        //string urlHumanSymbol2 = "%5BGene+Full+Name%5D)+AND+9606%5BTaxonomy+ID%5D&report=docsum&format=text";
+        string urlHumanSymbol2 = "&report=docsum&format=text";
+
         public Form1()
         {
             InitializeComponent();
@@ -39,6 +43,11 @@ namespace Get_LOC
             txtAnswers.Clear();
             string lastTerm = "";
             string answer = "";
+
+            string nothing = "-";
+            if (chkHuman.Checked==true)
+            { nothing = "-\t-"; }
+
             foreach (string entry in entries)
             {
                 string term = entry.Trim().ToLower();
@@ -46,10 +55,12 @@ namespace Get_LOC
                 if (string.IsNullOrEmpty(term) == false && term != lastTerm)
                 {
                     if (term == "-")
-                    { sb.Append("Blank\t" + answer + "\r\n"); }
+                    { sb.Append("Blank\t" + nothing + "\r\n"); }
                     else
                     {
                         answer = searchBrief(term);
+                        if (chkHuman.Checked == true)
+                        { answer = getHumanSymbol(answer); }
                         sb.Append(entry + "\t" + answer + "\r\n");
                     }                                                       
                 }
@@ -62,6 +73,56 @@ namespace Get_LOC
             }
         }
   
+        private string getHumanSymbol(string shortAnswer)
+        {
+            string extendedAnswer = shortAnswer +"\t-";
+            string[] items = shortAnswer.Split('\t');
+            string name = items[1];
+            int index = name.IndexOf("-like");
+            if (index > -1)
+            { name = name.Substring(0, index).Trim(); }
+
+            index = name.IndexOf("[");
+            if (index > -1)
+            { name = name.Substring(0, index).Trim(); }
+
+            if (name.ToLower().StartsWith(items[0].ToLower()) == true)
+            { name = name.Substring(items[0].Length + 1).Trim(); }
+
+            if (name[0] == '-')
+            { name = name.Substring(1).Trim(); }
+
+            name = name.Replace(" ", "+");
+
+            string contents = getText(urlHumanSymbol1 + name + urlHumanSymbol2);
+            if (contents == "Error") { return extendedAnswer; }
+
+            if (contents.Contains("<pre>") == true)
+            {
+                int coordins = contents.IndexOf("<pre>") + 5;
+                contents = contents.Substring(coordins).Trim();
+            }
+
+            if (contents == "</pre>")
+            { return extendedAnswer; }
+
+            string response = "-";
+            string[] lines = contents.Split('\n');
+
+            for (int lineCount = 0;lineCount < lines.Length;lineCount++)
+            { 
+                if (lines[lineCount].Contains("(human)]") == true)
+                {
+                    int dotIndex = lines[lineCount - 1].IndexOf(".") + 2;
+                    response = lines[lineCount -1].Substring(dotIndex);
+                    break;
+                }
+            }
+            
+            extendedAnswer = shortAnswer + "\t" +  response;
+            return extendedAnswer;
+        }
+
         private string searchBrief(string term)
         {
             string answer = "Error";
@@ -169,5 +230,27 @@ namespace Get_LOC
             { if (sf != null) { sf.Close(); } }
         }
 
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            string name = FileString.SaveAs("Enter the file name you want to save the results too", "Text file (*.txt)|*.txt");
+            if (name.Equals("Cancel") == true)
+            { return; }
+
+            System.IO.StreamWriter fw = null;
+
+            try
+            {
+                fw = new System.IO.StreamWriter(name);
+                string[] lines = txtAnswers.Lines;
+
+                foreach (string line in lines)
+                {
+                    fw.Write(line + "\n");
+                }
+            }
+            catch (Exception ex) { MessageBox.Show("Could not read file: " + ex.Message, "Error"); }
+            finally
+            { if (fw != null) { fw.Close(); } }
+        }
     }
 }
