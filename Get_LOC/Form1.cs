@@ -58,8 +58,10 @@ namespace Get_LOC
                     else
                     {
                         answer = searchBrief(term);
-                        if (chkHuman.Checked == true)
+                        if (chkHuman.Checked == true && answer != "-\t-")
                         { answer = getHumanSymbol(answer); }
+                        else if (chkHuman.Checked == true && answer == "-\t-")
+                        { answer = "\t-\t-\t-"; }
                         sb.Append(entry + "\t" + answer + "\r\n");
                     }                                                       
                 }
@@ -141,8 +143,12 @@ namespace Get_LOC
             }
 
             string[] lines = contents.Split('\n');
-            answer = lines[1];
-            answer = lines[0].Substring(3) + "\t" + answer.Replace("Official Symbol: ", "").Replace(" and Name: ", " - ");
+            if (lines.Length > 1)
+            {
+                answer = lines[1];
+                answer = lines[0].Substring(3) + "\t" + answer.Replace("Official Symbol: ", "").Replace(" and Name: ", " - ");
+            }
+            else { answer = "-\t-"; }
             return answer;
         }
 
